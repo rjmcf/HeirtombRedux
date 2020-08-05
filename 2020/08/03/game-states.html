@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Game States | Heirtomb Redux</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Game States" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m an infrastructure nerd at heart. I just love getting stuck into some abstract system that has very little reference to the material world. It’s the niche that I’ve found at work in my day job, and it’s what I decided to start with here." />
+<meta property="og:description" content="I’m an infrastructure nerd at heart. I just love getting stuck into some abstract system that has very little reference to the material world. It’s the niche that I’ve found at work in my day job, and it’s what I decided to start with here." />
+<link rel="canonical" href="http://localhost:4000/HeirtombRedux/2020/08/03/game-states.html" />
+<meta property="og:url" content="http://localhost:4000/HeirtombRedux/2020/08/03/game-states.html" />
+<meta property="og:site_name" content="Heirtomb Redux" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-03T17:00:00+01:00" />
+<script type="application/ld+json">
+{"headline":"Game States","dateModified":"2020-08-03T17:00:00+01:00","description":"I’m an infrastructure nerd at heart. I just love getting stuck into some abstract system that has very little reference to the material world. It’s the niche that I’ve found at work in my day job, and it’s what I decided to start with here.","datePublished":"2020-08-03T17:00:00+01:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/HeirtombRedux/2020/08/03/game-states.html"},"url":"http://localhost:4000/HeirtombRedux/2020/08/03/game-states.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/HeirtombRedux/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/HeirtombRedux/feed.xml" title="Heirtomb Redux" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/HeirtombRedux/">Heirtomb Redux</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/HeirtombRedux/dev_log/">Dev Log</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <head>
+  <link rel="stylesheet" href="/HeirtombRedux/assets/css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Game States</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-08-03T17:00:00+01:00" itemprop="datePublished">Aug 3, 2020
+      </time></p>
+  </header>
+
+  <div class="PageNavigation">
+    
+      <a class="prev" href="/HeirtombRedux/first_post">&laquo; Previous post: New Beginnings</a>
+    
+    
+      <a class="next" href="/HeirtombRedux/2020/08/05/test-hide-section.html">Next post: Test post &raquo;</a>
+    
+  </div>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m an infrastructure nerd at heart. I just love getting stuck into some abstract system that has very little reference to the material world. It’s the niche that I’ve found at work in my day job, and it’s what I decided to start with here.</p>
+
+<p>Now let’s be clear, I didn’t start with this kind of stuff <em>just</em> because it’s my favourite! I also did it because it’s something that in the past, we’ve tended to forget, and push back, and neglect until suddenly it’s a massive problem and necessitates lots of awkward changes to account for.</p>
+
+<p>During the jam, we started by implementing the basic game mechanics: the world grid, the entities, the player moving around the world, etc. This was all fine until towards the end of the time, when we realised that “uh-oh! If you get a game over you need to restart! And we don’t have any easy way to do that!” So it all ended up being rushed, desperately trying to make sure that everything got deleted and recreated, so nothing was hanging over from your last attempt. Well, we’re not having that this time, because I’m implementing the game state machine <em>first</em>.</p>
+
+<p>First, the jargon. What do I mean by “game state machine”? Well, a “state machine” is a computer science term that refers to a sort of abstract “machine” that can transition between various “states”.</p>
+
+<p>(Look mom, I’m using my degree!)</p>
+
+<p>You can imagine it a bit like a flow chart. Actually, it’s exactly like a flow chart. Why didn’t my lecturers just describe it like a flow chart? Lousy, good for nothing degree.</p>
+
+<p>If you’re still not sure what I’m on about, this is best explained with an example. Let me show you what I was aiming for for this particular game:</p>
+
+<div class="image">
+    <a href="/HeirtombRedux/assets/images/initial_game_state_machine.png" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/initial_game_state_machine.png" alt="A flowchart with labeled arrows between labeled boxes" width="600" />
+    </a>
+    
+</div>
+
+<p>Here, the boxes represent “states” that our game can be in, and the arrows represent how you transition between those states, with the labels describing the action. So to move between the “Playing the game” state and the “Pause Menu” state, the player has to “Pause”, and to move back, the player has to “Unpause”.</p>
+
+<p>The “Start” state just tells you where to start reading from. A few things to note:</p>
+<ul>
+  <li>There are plenty of loops in this flowchart! This is by design, players can go round and round these states as much as they need. They can pause and unpause as often as they like, fail and start over to their hearts’ content.</li>
+  <li>Most state machines (especially those used for pattern matching etc) will have an “output” or “final” state. We don’t need that here, since players can just quit the game at any time, and there’s no point linking every single state to some extra “Game Closed” state</li>
+  <li>The transition between “Start” and “Main Menu” has no label. This is just to show that there’s no specific action the player needs to take to get to the Main Menu, they just click on the icon and they’re straight in.</li>
+  <li>This is pretty general! Given how much trouble we’ve had with this in the past, this may be a candidate for some utility code that we can just reuse whenever we start a new project.</li>
+</ul>
+
+<p>As with all these kinds of things, I’m not instructing you on how you <em>should</em> be doing this sort of thing, just explaining how I’m choosing to do it, and hopefully explaining why it made sense to me. Leave a comment if you have a better suggestion. That was a joke, there’s no comment section on this thing. Not yet anyway… Hey, you can always tweet at me if you have a burning desire to tell me I’m an idiot. I’m sure I’d love to hear from you.</p>
+
+<p>But geneuinely, if you want to see more detail, see some actual code, or want me to change anything about how I’m doing these, please do let me know! Links to social things are at the bottom of every page.</p>
+
+  </div>
+
+  <div class="PageNavigation">
+    
+      <a class="prev" href="/HeirtombRedux/first_post">&laquo; Previous post: New Beginnings</a>
+    
+    
+      <a class="next" href="/HeirtombRedux/2020/08/05/test-hide-section.html">Next post: Test post &raquo;</a>
+    
+  </div><a class="u-url" href="/HeirtombRedux/2020/08/03/game-states.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/HeirtombRedux/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Heirtomb Redux</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list"><li><a class="u-email" href="mailto:rjmcf@live.co.uk">rjmcf@live.co.uk</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-3"><div class="footer-col-wrapper">
+	<div class="footer-col footer-col-3">
+		<ul class="social-media-list"><li><a href="https://github.com/rjmcf"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#github"></use></svg> <span class="username">rjmcf</span></a></li><li><a href="https://www.twitter.com/RjmcfDev"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">RjmcfDev</span></a></li></ul>
+	</div>
+	
+	<div class="footer-col footer-col-3">
+		<ul class="social-media-list"><li><a href="https://github.com/beakfriends"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#github"></use></svg> <span class="username">beakfriends</span></a></li><li><a href="https://www.twitter.com/beakfriends"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">beakfriends</span></a></li></ul>
+    </div>
+</div></div>
+
+      <div class="footer-col footer-col-2">
+        <p>Documenting the redevelopment of our jam game, Heirtomb. New title pending!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
