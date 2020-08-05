@@ -27,3 +27,5 @@ show_excerpts: true
 theme: minima
 plugins:
   - jekyll-feed
+
+exclude: [deploy.sh]
