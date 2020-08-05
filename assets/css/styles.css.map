@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sources": [
+		"styles.scss",
+		"_sass/main.scss"
+	],
+	"sourcesContent": [
+		"@import \"main\";",
+		".PageNavigation \n{\n    font-size: 14px;\n    display: block;\n    width: 100%;\n    overflow: hidden;\n}\n  \n.PageNavigation a \n{\n    display: block;\n    width: 50%;\n    float: left;\n    margin: 1em 0;\n}\n  \n.PageNavigation .next \n{\n    text-align: right;\n}\n\n.image\n{\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n}\n\n.captioned_image\n{\n  margin-top: 10px;\n  margin-bottom: 30px;\n  text-align: center;\n}"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,eAAe,CACf,EACI,SAAS,EAAE,IAAI,EACf,OAAO,EAAE,KAAK,EACd,KAAK,EAAE,IAAI,EACX,QAAQ,EAAE,MAAM,GACnB;;AAED,AAAA,eAAe,CAAC,CAAC,CACjB,EACI,OAAO,EAAE,KAAK,EACd,KAAK,EAAE,GAAG,EACV,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,KAAK,GAChB;;AAED,AAAA,eAAe,CAAC,KAAK,CACrB,EACI,UAAU,EAAE,KAAK,GACpB;;AAED,AAAA,MAAM,CACN,EACE,UAAU,EAAE,IAAI,EAChB,aAAa,EAAE,IAAI,EACnB,UAAU,EAAE,MAAM,GACnB;;AAED,AAAA,gBAAgB,CAChB,EACE,UAAU,EAAE,IAAI,EAChB,aAAa,EAAE,IAAI,EACnB,UAAU,EAAE,MAAM,GACnB"
+}
