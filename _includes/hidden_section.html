@@ -1,0 +1,15 @@
+<script>
+    $(document).ready(function(){
+      $("#hide").click(function(){
+        $("#the_section").hide(500);
+      });
+      $("#show").click(function(){
+        $("#the_section").show(500);
+      });
+    });
+</script>
+    
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+
+<p id="the_section" style="display:none">If you click on the "Hide" button, I will disappear. </p>
