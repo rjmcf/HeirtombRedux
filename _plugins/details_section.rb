@@ -1,7 +1,8 @@
 module Jekyll
   class DetailsSectionBlock < Liquid::Block
-    def initialize(tag_name, unique_id, tokens)
+    def initialize(tag_name, title, tokens)
       super
+      @title = title
     end
     require "kramdown"
   
@@ -10,7 +11,7 @@ module Jekyll
 
       "<div class='details-box'>
         <div class='details-box-title'>
-          <span class='caret'>Technical details</span>
+          <span class='caret'>#{@title}</span>
         </div>
         <div class='nested'>
           #{Kramdown::Document.new(text).to_html}

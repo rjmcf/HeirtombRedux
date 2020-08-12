@@ -5,7 +5,7 @@ $( document ).ready(function(){
     {
         toggler[i].addEventListener("click", function() 
         {
-            $(this).parent().parent().find(".nested").first().toggle(1000);
+            $(this).parent().parent().find(".nested").first().slideToggle(1000);
             this.classList.toggle("caret-down");
         });
     }
