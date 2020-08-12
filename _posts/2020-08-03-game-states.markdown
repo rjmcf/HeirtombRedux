@@ -18,7 +18,7 @@ You can imagine it a bit like a flow chart. Actually, it's exactly like a flow c
 
 If you're still not sure what I'm on about, this is best explained with an example. Let me show you what I was aiming for for this particular game:
 
-{% include captioned_image.html url="assets/images/initial_game_state_machine.png" width="600" description="A flowchart with labeled arrows between labeled boxes" %}
+{% include captioned_image.html url="assets/images/GameStates/initial_game_state_machine.png" width="600" description="A flowchart with labeled arrows between labeled boxes" %}
 
 Here, the boxes represent "states" that our game can be in, and the arrows represent how you transition between those states, with the labels describing the action. So to move between the "Playing the game" state and the "Pause Menu" state, the player has to "Pause", and to move back, the player has to "Unpause".
 
