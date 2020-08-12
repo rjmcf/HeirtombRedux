@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Minimap Debacle | Heirtomb Redux</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="The Minimap Debacle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It is a very particular kind of pain that comes with deleting hours worth of work, even if you know it’s for the best." />
+<meta property="og:description" content="It is a very particular kind of pain that comes with deleting hours worth of work, even if you know it’s for the best." />
+<link rel="canonical" href="http://localhost:4000/HeirtombRedux/2020/08/12/the-minimap-debacle.html" />
+<meta property="og:url" content="http://localhost:4000/HeirtombRedux/2020/08/12/the-minimap-debacle.html" />
+<meta property="og:site_name" content="Heirtomb Redux" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-12T17:00:00+01:00" />
+<script type="application/ld+json">
+{"headline":"The Minimap Debacle","dateModified":"2020-08-12T17:00:00+01:00","datePublished":"2020-08-12T17:00:00+01:00","description":"It is a very particular kind of pain that comes with deleting hours worth of work, even if you know it’s for the best.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/HeirtombRedux/2020/08/12/the-minimap-debacle.html"},"@type":"BlogPosting","url":"http://localhost:4000/HeirtombRedux/2020/08/12/the-minimap-debacle.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/HeirtombRedux/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/HeirtombRedux/feed.xml" title="Heirtomb Redux" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/HeirtombRedux/">Heirtomb Redux</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/HeirtombRedux/dev_log/">Dev Log</a></div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <link rel="stylesheet" href="/HeirtombRedux/assets/css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/HeirtombRedux/assets/js/nested_sections_collector.js"></script>
+
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">The Minimap Debacle</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-08-12T17:00:00+01:00" itemprop="datePublished">Aug 12, 2020
+      </time></p>
+  </header>
+
+  <div class="PageNavigation">
+    
+      <a class="prev" href="/HeirtombRedux/2020/08/03/game-states.html">« Previous post: Game States</a>
+    
+    
+      <a></a>
+    
+  </div>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>It is a very particular kind of pain that comes with deleting hours worth of work, even if you know it’s for the best.</p>
+
+<p>It’s a problem I have had to face in my day job as well. It’s not any more fun there. I can rationalise it as “making progress towards the correct solution”, but it still hurts to hit that delete key.</p>
+
+<p>After the Game States work was finished, the next thing I wanted to do was start working on the World Map. There are a few reasons for this:</p>
+
+<ul>
+  <li>It’s hard to implement anything else without a world to put it in!</li>
+  <li>Parts of the World Map work are examples of infrastructure that could be neglected early on, making it a big problem later on, like I talked about last time</li>
+  <li>It’s a good way to test some new debug tools!</li>
+</ul>
+
+<div class="details-box">
+        <div class="details-box-title">
+          <span class="caret">Definition: Debug </span>
+        </div>
+        <div class="nested">
+          
+<p>“Debug” is quite a strange word now I think about it. It was first used as a verb, so that “I need to debug this code” means “I need to remove the bugs from this code”. A “bug” here is a problem, error, or mistake.</p>
+
+<p>(I was saddened to learn that <a href="https://www.computerworld.com/article/2515435/moth-in-the-machine--debugging-the-origins-of--bug-.html" target="_blank" rel="noopener noreferrer">the moth story</a> is not the first time the word was used in this context, but it does explain why the term caught on. It didn’t catch on, it was already a term in use.)</p>
+
+<p>The strange part for me is that the word is now also used as a noun. “Debug” refers to any additional information that may be added to a program to help the debugging process. Debug helps you debug. Thanks English, this is why noone likes you.</p>
+
+
+        </div>
+      </div>
+
+<p>A few days ago, Max told me that Unity provides a debugging tool called <a href="https://docs.unity3d.com/Manual/GUIScriptingGuide.html" target="_blank" rel="noopener noreferrer">IMGUI</a>, which lets you very easily draw debug information on the screen. I was excited to hear about this, because I’ve used a very similar tool before, and know just how powerful it can be. One of the great things about it is that it lets you definitively separate out the debug related code, so it can be easily removed later. This is super useful, and in particular I was sure it would prevent the issue that caused me so much pain during the jam, where debug code got mixed up in the real stuff and accidentally took out what looked like 75% of the graphics.</p>
+
+<p>I started off by adding some debug to the GameStates I made last week:</p>
+
+<div class="captioned_image">
+    <a href="/HeirtombRedux/assets/images/MinimapDebacle/GameStateDebug-Optimise1.gif" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/MinimapDebacle/GameStateDebug-Optimise1.gif" alt="An animated gif showing a little window where text shows the state of the game changing from MainMenu to Playing to Paused etc" width="400">
+    </a>
+    
+      <br>
+      <em>I am never using print statements ever again</em>
+    
+</div>
+
+<p>That this was so easy was a good sign to me! Now onto something more challenging.</p>
+
+<p>Like last time, the world map is going to be a grid of square shaped things which I will call “tiles”. Each tile can hold stuff in it, and before we have models to represent that stuff, we need another way of representing what the tiles contain. Last time, as I documented, I coloured the actual tiles themselves to show what was in them, and this caused huge problems later. This time, I hope to keep the debug functionality completely separate from the game functionality. If I can make a debug representation of the map, then I can colour the tiles in IMGUI to show what’s in them, and leave the actual map tile completely untouched.</p>
+
+<p>Now, a difference between last time and this time is that we’re considering having different elevations for our tiles. In order to show this on the IMGUI debug map, I was thinking that we would need full 3D perspective drawings of the map, so you could see the elevation of each tile.</p>
+
+<div class="captioned_image">
+    <a href="/HeirtombRedux/assets/images/MinimapDebacle/bar_chart.png" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/MinimapDebacle/bar_chart.png" alt="A picture of a 3D excel bar chart, showing a grid of bars of different heights and colours" width="600">
+    </a>
+    
+      <br>
+      <em>Maybe something like this, but not a goddamn excel scientific bar chart</em>
+    
+</div>
+
+<p>This, I thought, would be <em>somewhat</em> hard to do, but should be possible. I’ve seen something similar done before in something very like IMGUI, so how hard can it be? Oh, how we love foreshadowing and dramatic irony around here.</p>
+
+<p>First off, before I could realise my wildest technicoloured bar chart dreams, I had to start small. I had to be able to draw straight lines. I wasn’t entirely sure about how to go about this, but managed to find <a href="https://gist.github.com/nsdevaraj/5877269" target="_blank" rel="noopener noreferrer">an example</a> of someone having done it before me. There was a lot of code here, but the main insight for me was how to draw a diagonal line. Imagine you had to draw a diagonal line on paper, and for some reason you can only draw horizontal lines. The easiest way to do this is to rotate the paper you’re drawing on, and then draw your horizontal line. When you turn the paper back to normal, the line ends up diagonal.</p>
+
+<div class="details-box">
+        <div class="details-box-title">
+          <span class="caret">Technical Details </span>
+        </div>
+        <div class="nested">
+          
+<p>Lemme walk through the code for that here:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">Texture2D</span> <span class="n">lineTex</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Texture2D</span> <span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>  
+<span class="n">Matrix4x4</span> <span class="n">matrixBackup</span> <span class="p">=</span> <span class="n">GUI</span><span class="p">.</span><span class="n">matrix</span><span class="p">;</span></code></pre></figure>
+
+<p>Making a new texture for every line that gets drawn is horrible, but we can optimise that by creating one up front and using that for every line.</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="kt">float</span> <span class="n">angle</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Atan2</span> <span class="p">(</span><span class="n">pointB</span><span class="p">.</span><span class="n">y</span> <span class="p">-</span> <span class="n">pointA</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pointB</span><span class="p">.</span><span class="n">x</span> <span class="p">-</span> <span class="n">pointA</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="p">*</span> <span class="m">180f</span> <span class="p">/</span> <span class="n">Mathf</span><span class="p">.</span><span class="n">PI</span><span class="p">;</span></code></pre></figure>
+
+<p>This represents the angle that we are going to rotate our horizontal line by, converted from radians into degrees.</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">GUIUtility</span><span class="p">.</span><span class="nf">RotateAroundPivot</span> <span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">pointA</span><span class="p">);</span>
+<span class="n">GUI</span><span class="p">.</span><span class="nf">DrawTexture</span> <span class="p">(</span><span class="k">new</span> <span class="nf">Rect</span> <span class="p">(</span><span class="n">pointA</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pointA</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="m">8</span><span class="p">),</span> <span class="n">lineTex</span><span class="p">);</span>
+<span class="n">GUI</span><span class="p">.</span><span class="n">matrix</span> <span class="p">=</span> <span class="n">matrixBackup</span><span class="p">;</span>  </code></pre></figure>
+
+<p>Here, we do the rotation (what I called “rotating the paper” above), then draw a horizontal line of the predetermined width (8) and the precalculated length (not shown here). By restoring the backup matrix, we are essentially turning the paper back to normal again.</p>
+
+        </div>
+      </div>
+
+<p>This felt like quite a natural solution to me, so I tried it out. Well, it had some interesting results…</p>
+
+<div class="captioned_image">
+    <a href="/HeirtombRedux/assets/images/MinimapDebacle/RotationFail-Optimise1.gif" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/MinimapDebacle/RotationFail-Optimise1.gif" alt="Shows a red line moving in completely different directions to where the map is being moved" width="600">
+    </a>
+    
+      <br>
+      <em>The red line is vertical (as intended), but should be in the top left corner of the dark grey square</em>
+    
+</div>
+
+<p>Drat. Well, this is what you get for ripping off someone else’s work wholesale.</p>
+
+<p>So I decided to start from scratch, making sure I understood every part of the process as I went. I learned a lot about different parts of the tools I am using, which was good, and managed to get individual points displaying very reliably. Walk before you can run and all that.</p>
+
+<p>I started working on the lines again, confident that I’d get it right this time, and the exact same thing happened! I did some further investigation, and discovered that something to do with how we were scaling up the GUI was causing the rotation to just happen around the wrong point. I tried every combination of scales and rotations and transformations I could think of, but nothing got it working. I went to bed that night having accomplished very little.</p>
+
+<p>The next evening (I’m only working on this in my spare time of course), I went back and tried every combination I could think of again, just in case I had typed one incorrectly or something. Finally I realised something. I was picking pivot points (the point on the screen that the horizontal line was being rotated around) almost at random, and then just hoping they would be in the right place. What I needed to do was reverse engineer the point, that is, make it so that the line was in the right place, and then see what point we’d rotated around. The way I worked out that would let me do this was to rotate around the mouse position on the screen. I could just move the mouse until the line was in the right place, then see where the mouse was!</p>
+
+<p>When I did this, I discovered that what I needed was… an incredibly simple scale. I don’t know how I missed it both times I went through all the combinations. Success was bittersweet.</p>
+
+<p>But it was success! Now I could start actually working on the perspective drawing!</p>
+
+<p>But then I noticed something… weird.</p>
+
+<div class="image">
+    <a href="/HeirtombRedux/assets/images/MinimapDebacle/ClippingIssues-Optimise1.gif" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/MinimapDebacle/ClippingIssues-Optimise1.gif" alt="When the width of the window is reduced, the line disappears a little too early. When the height of the window is reduced, the line disappears much too late." width="600">
+    </a>
+    
+</div>
+
+<p>On the one hand, it’s great that the line I’m drawing is getting clipped. On the other, I wish it wasn’t getting clipped like <em>that</em>.</p>
+
+<p>After a bit of research, it appears that this may be a bug in Unity itself that’s been around since 2013. Yeah that’s right, this is a call out post. Fix your shit, Unity. How do I @ on this thing.</p>
+
+<p>The issue is caused by using Unity’s clipping with Unity’s rotation, it seems like if I do either or both of these things myself then we’ll be fine. I try implementing my own clipping by drawing a massive texture over everything that’s inside the window that isn’t the map, but this absolutely destroys the frame rate, making it hard to work with. I’m getting frustrated at this point, and can’t be bothered to pursue this method.</p>
+
+<p>Ok, if I still want to do this, I need a way of drawing a diagonal line without rotation. There are ways, there are some very classic line drawing algorithms that make diagonal lines out of many small squares (like <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm" target="_blank" rel="noopener noreferrer">this one</a>), but I worry that this will also tank the frame rate. I also worry that I don’t really want to do this anymore.</p>
+
+<p>If I’m struggling this hard on the absolute <em>basics</em>, what’s it going to be like doing the actual thing I want to do which is about four thousand times more complicated? This doesn’t feel like game dev any more, not the kind I want to spend my free time doing anyway. Is there another way of doing what I want that doesn’t require me to sell my soul?</p>
+
+<p>Let’s go back to the core problem. Naively, the map is a grid of squares, except some of these squares can be higher than others, and I need a way of showing that. Well, on the debug these squares are going to be unbelievably simple, they’re just going to be a block colour, so I have space inside the square to put information. Like, I dunno, a number representing the elevation. That’s easy, that solves the problem in about 15 minutes, and doesn’t make me want to chuck my laptop in a lake.</p>
+
+<div class="captioned_image">
+    <a href="/HeirtombRedux/assets/images/MinimapDebacle/flat_grid.png" target="_blank" rel="noopener noreferrer">
+      <img src="/HeirtombRedux/assets/images/MinimapDebacle/flat_grid.png" alt="A flat grid of ten by ten squares, each with the number 0 in it." width="400">
+    </a>
+    
+      <br>
+      <em>Job's a good'un</em>
+    
+</div>
+
+<p>Right, well that was a huge waste of time.</p>
+
+<p>Although, as I alluded to during this, I don’t <em>really</em> think it was. I did learn lots about Unity’s IMGUI that will make stuff easier going forward, and learned what sort of things to avoid doing. I think I’ve also learned that I need to give up sooner. Not in a defeatist kind of way, but more in a “is this really the only/best way to go about this?” kind of way. The important thing, I think, is to keep the momentum going on the game itself, rather than getting too bogged down in extraneous stuff. A good lesson to learn this early I believe!</p>
+
+<p>Next time, hopefully I’ll have finished off the World Map initial implementation!</p>
+
+
+  </div>
+
+  <div class="PageNavigation">
+    
+      <a class="prev" href="/HeirtombRedux/2020/08/03/game-states.html">« Previous post: Game States</a>
+    
+    
+      <a></a>
+    
+  </div>
+<a class="u-url" href="/HeirtombRedux/2020/08/12/the-minimap-debacle.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/HeirtombRedux/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Heirtomb Redux</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list"><li><a class="u-email" href="mailto:rjmcf@live.co.uk">rjmcf@live.co.uk</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-3"><div class="footer-col-wrapper">
+	<div class="footer-col footer-col-3">
+		<ul class="social-media-list">
+<li><a href="https://github.com/rjmcf" target="_blank" rel="noopener noreferrer"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#github"></use></svg> <span class="username">rjmcf</span></a></li>
+<li><a href="https://www.twitter.com/RjmcfDev" target="_blank" rel="noopener noreferrer"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">RjmcfDev</span></a></li>
+</ul>
+	</div>
+	
+	<div class="footer-col footer-col-3">
+		<ul class="social-media-list">
+<li><a href="https://github.com/beakfriends" target="_blank" rel="noopener noreferrer"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#github"></use></svg> <span class="username">beakfriends</span></a></li>
+<li><a href="https://www.twitter.com/beakfriends" target="_blank" rel="noopener noreferrer"><svg class="svg-icon"><use xlink:href="/HeirtombRedux/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">beakfriends</span></a></li>
+</ul>
+    </div>
+</div></div>
+
+      <div class="footer-col footer-col-2">
+        <p>Documenting the redevelopment of our jam game, Heirtomb. New title pending!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
